@@ -4,37 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Ubah Buku</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
     <?php
-    include "koneksi.php";
-    $qry_get_buku=mysqli_query($koneksi,"select * from buku where id_buku = '".$_GET['id_buku']."'");
-    $dt_buku=mysqli_fetch_array($qry_get_buku);
+        include "navbar.php";
+        include "koneksi.php";
+        $query_buku = mysqli_query($koneksi, "select * from buku where id_buku='".$_GET['id_buku']."'");
+        $data_buku = mysqli_fetch_array($query_buku);
     ?>
-    <h3>Ubah Buku</h3>
-    <form action="proses_ubah_buku.php" method="post">
-        <div class="mb-3">
-        <input type="hidden" name="id_buku" value="<?=$dt_buku['id_buku']?>">
-                Nama Buku :
-                <input type="text" class="form-control" name="nama_buku"  value="<?=$dt_buku['nama_buku']?>" placeholder="Masukan Nama Buku" required>
+    <br></br>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-header">Ubah Buku</h1>
+            <div class="card-body">
+                <form method="POST" action="proses_Ubah_buku.php" enctype="multipart/form-data">
+                    <input type="hidden" name="id_buku" value="<?=$data_buku['id_buku']?>">
+                    <div class="mb-3">
+                        <label for="nama_buku" class="form-label">Nama Buku</label>
+                        <input type="text" class="form-control" name="nama_buku" value="<?=$data_buku['nama_buku']?>" placeholder="Masukkan Nama Buku" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pengarang" class="form-label">Pengarang</label>
+                        <input type="text" class="form-control" name="pengarang" value="<?=$data_buku['pengarang']?>" placeholder="Masukkan Nama Pengarang" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" row="3" placeholder="Masukkan Deskripsi Buku" required><?=$data_buku['deskripsi']?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto</label>
+                        <img src="foto/<?=$data_buku['foto']?>" width=100>
+                        <input type="file" class="form-control" name="foto" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <div class="mb-3">
-                Pengarang :
-                <input type="text" class="form-control" name="pengarang"  value="<?=$dt_buku['pengarang']?>" placeholder="Masukan Pengarang" required>
-            </div>
-            <div class="mb-3">
-                Deskripsi :
-                <input type="text" class="form-control" name="deskripsi"  value="<?=$dt_buku['deskripsi']?>" placeholder="Masukan Deskripsi Buku" required>
-            </div>
-            <div class="mb-3">
-                Foto :
-                <input type="file" name="foto" value="" class="form-control" value="<?=$dt_buku['foto']?>" required>
-            </div>
-            <input type="submit" name="simpan" value="Ubah Buku" class="btn btn-primary">
-    <form>    
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 </body>
 </html>

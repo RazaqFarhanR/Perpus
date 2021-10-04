@@ -7,35 +7,25 @@
     <title>Data Kelas</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-            <a class="nav-link" href="tambah_kelas.php">Tambah Kelas</a>
-            <a class="nav-link" href="tambah_siswa.php">Tambah Siswa</a>
-            <a class="nav-link" href="tambah_buku.php">Tambah Buku</a>
-            <a class="nav-link" href="tampil_siswa.php">Data Siswa</a>
-            <a class="nav-link" href="tampil_kelas.php">Data Kelas</a>
-            <a class="nav-link" href="tampil_buku.php">Data Buku</a>
-            </div>
-        </div>
-        </div>
-    </nav>
 </head>
 <body>
+    <?php
+        include "navbar.php";
+    ?>
+    <br></br>
     <div class="container">
-        <form action="tampil_kelas.php" method="post">
-            <input type="text" name="cari" class="form-control" 
-            placeholder="Cari berdasarkan ID/Nama Kelas">
-        </form>
-        <H1 class="text-center">DATA KELAS<H1>
+    <div class="card">
+        <div class="card-header">
+            <h1>DATA KELAS</h1>
+            <form method="POST" action="tampil_kelas.php" class="d-flex">
+                <input class="form-control me-2" type="search" name="cari" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="card-body">
         <table class="table table-hover table-striped">
         <thead class="table-dark">
-          <tr class="text-center">
+          <tr>
             <th scope="col">ID Kelas</th>
             <th scope="col">Nama Kelas</th>
             <th scope="col">Kelompok</th>
@@ -62,14 +52,17 @@
                     <td><?php echo $data_kelas["nama_kelas"]; ?></td>
                     <td><?php echo $data_kelas["kelompok"]; ?></td>
                     <td><a href="ubah_kelas.php?id_kelas=<?=$data_kelas['id_kelas']?>"class="btn btn-success">Ubah</a>  
-                    <a href="hapus_kelas.php?id_kelas=<?=$data_kelas['id_kelas']?>"
-                    onclick="return confirm('Apakah anda yakin menghapus data ini?')" class="btn btn-danger">Hapus</a></td>
-                <tr>
+                        <a href="hapus_kelas.php?id_kelas=<?=$data_kelas['id_kelas']?>"
+                        onclick="return confirm('Apakah anda yakin menghapus data ini?')" class="btn btn-danger">Hapus</a>
+                    </td>
+                </tr>
             <?php
             }
             ?>
         </tbody>
         </table>
+            <a href="tambah_kelas.php" type="button" class="btn btn-primary">Tambah Kelas</a>
+        </div>
     </div>
 
     <!-- JavaScript Bundle with Popper -->
