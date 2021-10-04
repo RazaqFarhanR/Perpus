@@ -36,20 +36,17 @@
         </thead>
         <tbody>
             <?php
-            include "koneksi.php";
-            if (isset($_POST["cari"])) {
-                // jika ada keyword penarian
-                $cari = $_POST['cari'];
-                $query_siswa = mysqli_query($koneksi, 
-                "SELECT * from siswa join kelas on kelas.id_kelas=siswa.id_kelas where siswa.id_siswa='$cari' nama_siswa like '%$cari%'");
-            } else {
-                // jika tidak ada keyword pencarian
-                $query_siswa = mysqli_query($koneksi, "select * from siswa join kelas on kelas.id_kelas=siswa.id_kelas");
-            }
-            
-            $no=0;
-            while($data_siswa = mysqli_fetch_array($query_siswa)) {$no++;?>
-                <tr class="text-center">
+                    include "koneksi.php";
+                    if (isset($_POST['cari'])) {
+                        $cari = $_POST['cari'];
+                        $query_siswa = mysqli_query($koneksi, "select * from siswa s join kelas k on s.id_kelas = k.id_kelas where s.id_siswa = '$cari' or s.nama_siswa like '%$cari%' or s.alamat like '%$cari%' or s.username like '%$cari%'");
+                    }
+                    else{
+                        $query_siswa = mysqli_query($koneksi, "select * from siswa s join kelas k on s.id_kelas = k.id_kelas");
+                    }
+                    $no=0;
+                    while($data_siswa = mysqli_fetch_array($query_siswa)){ $no++?>
+                    <tr class="text-center">
                     <td><?php echo $no?></td>
                     <td><?php echo $data_siswa["nama_siswa"]; ?></td>
                     <td><?php echo $data_siswa["tanggal_lahir"]; ?></td>
