@@ -51,7 +51,4 @@
         echo mysqli_error($koneksi);
     }
     
-
-    
-
 ?>
